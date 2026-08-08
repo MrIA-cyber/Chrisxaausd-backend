@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const { startSignalCron } = require('./cron/signalCron');
-const Signal = require('./models/Signal');
+const { startSignalCron } = require('./signalCron');
+const Signal = require('./Signal');
 
 const app = express();
 app.use(express.json());
