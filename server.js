@@ -4,7 +4,7 @@ const mongoose = require('mongoose');const cors = require('cors');
 const { startSignalCron } = require('./signalCron');
 const Signal = require('./Signal');const cors = require('cors');
 
-const app = express();app.use(cors());
+const app = express();app.use(cors());app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
