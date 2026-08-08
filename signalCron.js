@@ -1,7 +1,7 @@
 const cron = require('node-cron');
-const { getForexData } = require('../services/forexData');
-const { generateSignal } = require('../services/signalGenerator');
-const Signal = require('../models/Signal');
+const { getForexData } = require('./forexData');
+const { generateSignal } = require('./signalGenerator');
+const Signal = require('./Signal');
 
 const PAIRES = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD'];
 
