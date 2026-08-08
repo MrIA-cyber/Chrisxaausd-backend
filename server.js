@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { startSignalCron } = require('./signalCron');
-const Signal = require('./Signal');
+const Signal = require('./Signal');const cors = require('cors');
 
-const app = express();
+const app = express();app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
