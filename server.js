@@ -1,19 +1,29 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');const cors = require('cors');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const { startSignalCron } = require('./signalCron');
-const Signal = require('./Signal');const cors = require('cors');
+const Signal = require('./Signal');
 
-const app = express();app.use(cors());app.use(cors());
+const app = express();
+
+// Configuration CORS
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
+// Connexion MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connecté à MongoDB'))
   .catch((err) => console.error('Erreur de connexion MongoDB:', err.message));
 
 // Endpoint santé (utile pour vérifier que le serveur tourne)
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', uptime: process.uptime() });
 });
 
 // Endpoint pour que votre frontend récupère les derniers signaux
@@ -26,7 +36,8 @@ app.get('/api/signals', async (req, res) => {
   }
 });
 
+// Démarrage du cron de signaux
 startSignalCron();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur ChrisXAAUSD démarré sur le port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Serveur ChrisXAAUSD démarré sur le port ${PORT}`));
